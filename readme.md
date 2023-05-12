@@ -45,8 +45,8 @@ docker run -d --restart=always -p 3001:3001 --device /dev/net/tun:/dev/net/tun -
 
 ## Credit
 
-This Dockerfile was revised from a dockerfile in discussion under [this issue](https://github.com/tailscale/tailscale/issues/1981). As of the time of writing this, the build works fine with Tailscale 1.40.1 and Uptime Kuma 1.21.3. If you have any improvements, feel free to create a pull requests.
+This Dockerfile was revised from a dockerfile in discussion under [this issue](https://github.com/louislam/uptime-kuma/issues/1981). As of the time of writing this, the build works fine with Tailscale 1.40.1 and Uptime Kuma 1.21.3. If you have any improvements, feel free to create a pull requests.
 
 And heads up, I'm still figuring out how to integrate Tailscale ping with Uptime Kuma instead of using its default ICMP pings. I'll pull Uptime Kuma in the future.
 
-Written with ❤️ to Tailscale by @SGprooo.
+Written with ❤️ to Tailscale
