@@ -1,14 +1,12 @@
 # Dockerfile
 FROM alpine:latest as tailscale
 WORKDIR /app
-RUN apk add --no-cache curl tar jq \
-    && response=$(curl -s "https://api.github.com/repos/tailscale/tailscale/releases/latest") \
-    && version=$(echo "$response" | jq -r '.tag_name') \
-    && echo "Version: $version" \
-    && wget "https://pkgs.tailscale.com/stable/tailscale_${version#v}_arm64.tgz" \
-    && tar xzf "tailscale_${version#v}_arm64.tgz" --strip-components=1 \
-    && rm "tailscale_${version#v}_arm64.tgz" \
+RUN apk add --no-cache curl tar \
+    && curl -LO "https://pkgs.tailscale.com/stable/latest_arm64.tgz" \
+    && tar xzf latest_arm64.tgz --strip-components=1 \
+    && rm latest_arm64.tgz \
     && ls /app
+
 
 
 FROM louislam/uptime-kuma:1
