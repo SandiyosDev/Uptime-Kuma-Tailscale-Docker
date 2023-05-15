@@ -18,8 +18,9 @@ RUN SUPPORTED_ARCHITECTURES='AMD64, ARM64, ARM(v7)' \
 # Using Alpine Linux image
 FROM --platform=${TARGETPLATFORM} alpine:latest as tailscale
 WORKDIR /app
-# Install necessary packages and download Tailscale package for the target platform
-RUN apk add --no-cache curl tar jq \
+#  Download and Install the latest Tailscale package for the target platform
+RUN set -e \
+    && apk add --no-cache curl tar jq \
     && curl -LO "https://pkgs.tailscale.com/stable/latest_${TARGETPLATFORM#*/}.tgz" \
     && tar xzf "latest_${TARGETPLATFORM#*/}.tgz" --strip-components=1 \
     && rm "latest_${TARGETPLATFORM#*/}.tgz" \
