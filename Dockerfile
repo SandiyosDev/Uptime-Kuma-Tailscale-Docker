@@ -1,5 +1,11 @@
+# THIS DOCKERFILE IS STILL WORK-IN-PROGRESS
+
+# Added validator to try and resolve build context
+FROM alpine as validator
 # Argument for the platform on which the Docker image will be built and run
 ARG TARGETPLATFORM
+ARG TAILSCALE_VERSION=latest
+ARG UPTIME_KUMA_VERSION=latest
 
 # Validate the target platform and convert user-specified platform to a standard format
 # Exit if the platform is not detected or unsupported
@@ -33,8 +39,6 @@ FROM --platform=${TARGETPLATFORM} louislam/uptime-kuma:latest
 RUN apt-get update && apt-get install -y ca-certificates iptables \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy start script to the container
-COPY ./start.sh /app/start.sh
 # Copy Tailscale files from the first stage to the container
 COPY --from=tailscale /app/tailscaled /app/tailscaled
 COPY --from=tailscale /app/tailscale /app/tailscale
@@ -50,7 +54,5 @@ EXPOSE 3001
 VOLUME ["/app/data"]
 # Define health check for the application
 HEALTHCHECK --interval=60s --timeout=30s --start-period=180s --retries=5 CMD curl --fail http://localhost:3001/healthcheck || exit 1
-# Define the entrypoint script
-ENTRYPOINT ["/usr/bin/dumb-init", "--", "/app/extra/entrypoint.sh"]
-# Define the default command
-CMD ["/app/start.sh"]
+# Define the entrypoint script and got rid of start.sh
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/app/extra/entrypoint.sh", "/app/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &", "/app/tailscale up --authkey=$TS_AUTHKEY --accept-routes --hostname=$TS_HOSTNAME", "node server/server.js"]
