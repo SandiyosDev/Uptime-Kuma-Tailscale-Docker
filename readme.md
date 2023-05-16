@@ -1,5 +1,7 @@
 # Uptime Kuma with Tailscale Docker Image for AMD64/ARM64/ARM(v7)
 
+## (THIS DOCKERFILE IS STILL WORK-IN-PROGRESS BUT BUILDS AND RUNS CORRECTLY)
+
 This Dockerfile is your ticket to building a docker image for [Uptime Kuma](https://github.com/louislam/uptime-kuma) with [Tailscale](https://tailscale.com) support; Uptime Kuma is a self-hosted monitoring tool, and Tailscale is a zero config VPN, making this combination a pretty useful one.
 
 The Dockerfile provided always fetches the latest version of Tailscale during the build, so you're always up-to-date.
