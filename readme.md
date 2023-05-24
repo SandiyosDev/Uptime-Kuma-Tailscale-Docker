@@ -1,4 +1,4 @@
-# Uptime Kuma with Tailscale Docker Image for AMD64/ARM64/ARM(v7)
+# Uptime Kuma with Tailscale Dockerfile (AMD64/ARM64/ARM(v7))
 
 **Work in progress - Though the dockerfile builds and runs fine at its current state**
 
@@ -21,7 +21,7 @@ git clone https://github.com/SGprooo/Uptime-Kuma-Tailscale-Docker.git
 Navigate to the directory with the Dockerfile and start the build:
 
 ```bash
-docker build -t Uptime-Kuma-Tailscale-Docker .
+docker build -t uptime-kuma-tailscale-docker .
 ```
 
 **3. Fire Up the Docker Container**
